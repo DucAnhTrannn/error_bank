@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngân hàng lỗi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4"><i class="fas fa-bug"></i> Ngân hàng lỗi</h1>
+        <form class="form-inline mb-4" method="GET" action="/">
+            <select class="form-control mr-2" name="sort_by">
+                <option value="id" {% if sort_by == 'id' %}selected{% endif %}>ID</option>
+                <option value="product_code" {% if sort_by == 'product_code' %}selected{% endif %}>Mã sản phẩm lỗi</option>
+                <option value="description" {% if sort_by == 'description' %}selected{% endif %}>Mô tả</option>
+                <option value="cause" {% if sort_by == 'cause' %}selected{% endif %}>Nguyên nhân</option>
+                <option value="solution" {% if sort_by == 'solution' %}selected{% endif %}>Giải pháp</option>
+                <option value="date_created" {% if sort_by == 'date_created' %}selected{% endif %}>Ngày tạo</option>
+            </select>
+            <select class="form-control mr-2" name="filter_by">
+                <option value="all" {% if filter_by == 'all' %}selected{% endif %}>Tất cả</option>
+                {% for cause in causes %}
+                <option value="{{ cause.cause }}" {% if filter_by == cause.cause %}selected{% endif %}>{{ cause.cause }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Lọc & Sắp xếp</button>
+        </form>
+        <a href="/add" class="btn btn-success mb-3"><i class="fas fa-plus"></i> Thêm lỗi mới</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mã sản phẩm lỗi</th>
+                    <th>Mô tả</th>
+                    <th>Nguyên nhân</th>
+                    <th>Giải pháp</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for error in errors %}
+                <tr>
+                    <td>{{ error.id }}</td>
+                    <td>{{ error.product_code }}</td>
+                    <td>{{ error.description }}</td>
+                    <td>{{ error.cause }}</td>
+                    <td>{{ error.solution }}</td>
+                    <td>{{ error.date_created.strftime('%Y-%m-%d') if error.date_created else 'N/A' }}</td>
+                    <td>
+                        <a href="/update/{{ error.id }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Cập nhật</a>
+                        <a href="/delete/{{ error.id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Xóa</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

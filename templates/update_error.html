@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật lỗi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1><i class="fas fa-edit"></i> Cập nhật lỗi</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="product_code">Mã sản phẩm lỗi:</label>
+                <input type="text" class="form-control" id="product_code" name="product_code" value="{{ error.product_code }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Mô tả:</label>
+                <input type="text" class="form-control" id="description" name="description" value="{{ error.description }}" required>
+            </div>
+            <div class="form-group">
+                <label for="cause">Nguyên nhân:</label>
+                <input type="text" class="form-control" id="cause" name="cause" value="{{ error.cause }}" required>
+            </div>
+            <div class="form-group">
+                <label for="solution">Giải pháp:</label>
+                <input type="text" class="form-control" id="solution" name="solution" value="{{ error.solution }}" required>
+            </div>
+            <div class="form-group">
+                <label for="date_created">Ngày tạo:</label>
+                <input type="date" class="form-control" id="date_created" name="date_created" value="{{ error.date_created.strftime('%Y-%m-%d') if error.date_created else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Cập nhật lỗi</button>
+            <a href="/" class="btn btn-secondary"><i class="fas fa-times"></i> Hủy bỏ</a>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
